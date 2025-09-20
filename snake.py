@@ -18,12 +18,25 @@ class Snake:
         self.length = start_length
         self._direction = start_direction
         self._prev_direction = start_direction
+        
+    @property
+    def body(self):
+        return list(zip(self.x, self.y))
 
-    def update_direction(self, value: int) -> None:
+    @property
+    def head(self):
+        return self.x[0], self.y[0]
+    
+    @property
+    def direction(self) -> int:
+        return self._direction
+    
+    @direction.setter
+    def direction(self, value: int) -> None:
         if value not in range(4):
             raise ValueError("Direction must be 0, 1, 2 or 3")
         if value == self._direction or (value + self._prev_direction) % 2 == 0:
-            # Prevents snake from turning 180 degrees
+            # Prevent snake from turning 180 degrees
             return
         self._direction = value
 
@@ -34,11 +47,4 @@ class Snake:
         if len(self.body) > self.length:
             self.x.pop()
             self.y.pop()
-
-    @property
-    def body(self):
-        return list(zip(self.x, self.y))
-
-    @property
-    def head(self):
-        return self.x[0], self.y[0]
+            

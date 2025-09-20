@@ -17,4 +17,4 @@ clock = pygame.time.Clock()
 
 score = gf.run_game(screen, clock, snake, apple)
 
-print(f"Your score is {score}")
+print(f"Score: {score}")
