@@ -16,13 +16,13 @@ def check_events(snake: Snake, apple: Apple) -> None:
             sys.exit()
         if not Config.AI:
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_UP:
+                if event.key == pygame.K_RIGHT:
                     snake.direction = 0
-                elif event.key == pygame.K_RIGHT:
-                    snake.direction = 1
                 elif event.key == pygame.K_DOWN:
-                    snake.direction = 2
+                    snake.direction = 1
                 elif event.key == pygame.K_LEFT:
+                    snake.direction = 2
+                elif event.key == pygame.K_UP:
                     snake.direction = 3
         else:
             # Implement AI decision-making here
@@ -69,12 +69,34 @@ def spawn_apple(snake: Snake, max_x: int, max_y: int) -> Apple:
             return Apple(x, y)
         
 
-# def get_inputs(snake: Snake, apple: Apple) -> np.ndarray:
-#     """Get inputs for AI decision-making"""
-#     head_coord = np.array(snake.head)
-#     apple_coord = np.array([apple.x, apple.y])
-#     body_coord = np.array(snake.body[1:])
-#     direction = snake.direction
+def get_inputs(snake: Snake, apple: Apple):
+    """Get inputs for AI decision-making"""
+    head_coord = np.array(snake.head)
+    apple_coord = np.array([apple.x, apple.y])
+    body_coord = np.array(snake.body[1:])
+    direction = snake.direction
+    
+    dist_apple = apple_coord - head_coord
+    dist_wall = np.array([Config.GAME_WIDTH - head_coord[0],
+                          head_coord[0] + 1,
+                          Config.GAME_HEIGHT - head_coord[1],
+                          head_coord[1] + 1])
+    dist_body = body_coord - head_coord
+    
+    return (dist_apple, dist_wall, dist_body)
+    # Inputs to consider:
+    # Distance to apple front/back
+    # Distance to apple left/right
+    # Distance to body front
+    # Distance to body left
+    # Distance to body right
+    # Distance to wall front
+    # Distance to wall left
+    # Distance to wall right
+    
+    game_state = []
+    
+    return np.array(game_state)
     
         
 

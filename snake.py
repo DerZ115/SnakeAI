@@ -2,16 +2,16 @@ from collections import deque
 
 
 class Snake:
-    directions = {0: (0, -1),  # up
-                  1: (1, 0),  # right
-                  2: (0, 1),  # down
-                  3: (-1, 0)}  # left
+    directions = [(1, 0),  # right
+                  (0, 1),  # down
+                  (-1, 0), # left
+                  (0, -1)] # up
 
     def __init__(self,
                  start_x: int,
                  start_y: int,
                  start_length: int = 5,
-                 start_direction: int = 1) -> None:
+                 start_direction: int = 0) -> None:
 
         self.x = deque([start_x - self.directions[start_direction][0] * i for i in range(start_length)])
         self.y = deque([start_y - self.directions[start_direction][1] * i for i in range(start_length)])

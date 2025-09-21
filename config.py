@@ -10,5 +10,5 @@ class Config:
     SNAKE_COLOR: tuple[int, int, int] = (0, 0, 255)
     SNAKE_HEAD_COLOR: tuple[int, int, int] = (0, 255, 0)
     FOOD_COLOR: tuple[int, int, int] = (255, 0, 0)
-    SPEED: float = 10.0
+    SPEED: float = 5
     AI: bool = False
