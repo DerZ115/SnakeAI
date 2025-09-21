@@ -1,5 +1,7 @@
+import logging 
 from collections import deque
 
+logger = logging.getLogger(f"snake_game.{__name__}")
 
 class Snake:
     directions = [(1, 0),  # right
@@ -18,6 +20,7 @@ class Snake:
         self.length = start_length
         self._direction = start_direction
         self._prev_direction = start_direction
+        logger.debug(f"Snake created at position ({start_x}, {start_y}) with length {start_length}")
         
     @property
     def body(self):
@@ -34,17 +37,21 @@ class Snake:
     @direction.setter
     def direction(self, value: int) -> None:
         if value not in range(4):
+            logger.error("Invalid direction value: %d", value)
             raise ValueError("Direction must be 0, 1, 2 or 3")
         if value == self._direction or (value + self._prev_direction) % 2 == 0:
             # Prevent snake from turning 180 degrees
             return
         self._direction = value
+        logger.debug(f"Snake direction changed to {self._direction}")
 
     def move(self) -> None:
         self.x.appendleft(self.x[0] + self.directions[self._direction][0])
         self.y.appendleft(self.y[0] + self.directions[self._direction][1])
         self._prev_direction = self._direction
+        
         if len(self.body) > self.length:
             self.x.pop()
             self.y.pop()
+        logger.debug(f"Snake moved to position {self.head}")
             

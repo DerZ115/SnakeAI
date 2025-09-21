@@ -12,3 +12,4 @@ class Config:
     FOOD_COLOR: tuple[int, int, int] = (255, 0, 0)
     SPEED: float = 5
     AI: bool = False
+    SHOW_GAME: bool = True
